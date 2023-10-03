@@ -33,7 +33,7 @@
                         <li class="nav-item"><a class="nav-link" href="#counseling">心理諮商</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">講座邀約</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">聯絡我</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#blogger">部落格</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#blogger">最新消息</a></li>
                     </ul>
                 </div>
             </div>
@@ -180,8 +180,8 @@
         <section class="page-section bg-info" id="counseling">
             <div class="container px-4 px-lg-5">
                 <h2 class="text-center mt-0">心理諮商與治療取向</h2>
-                <p class="text-center mb-0">&#40;整合與折衷取向心理治療師&#41;</p>
-                <hr class="divider" />
+                <p class="text-center mb-0">整合與折衷取向心理治療師</p>
+                <hr class="divider divider-green" />
                 <div class="row gx-4 gx-lg-5 mb-5">
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
@@ -293,21 +293,29 @@
         <!-- Blogger -->
         <section class="page-section bg-gradient" id="blogger">
             <div class="container px-4 px-lg-5">
-                <h2 class="text-center mt-0">部落格</h2>
+                <h2 class="text-center mt-0">最新消息</h2>
                 <hr class="divider" />
-                <div class="text-center border border-dark border-1 m-3 p-4">
+                <div id="bloggerItems"></div>
+                <!-- <div class="text-center border border-dark border-1 m-3 p-4">
                     <h4 class="text-center" id="bloggerTitle"></h4>
                     <p class="text-lowercase" id="bloggerContent"></p>
-                </div>
+                </div> -->
                 <div class="col text-center mt-5">
-                    <a class="btn btn-green btn-xl" href="https://whwpsy.blogspot.com" target="_blank">前往部落格</a>
+                    <a class="btn btn-green btn-xl" href="https://whwpsy.blogspot.com" target="_blank">看更多</a>
                 </div>
             </div>
         </section>
         <script>
             function handleResponse(response) {
-                document.getElementById("bloggerTitle").innerHTML = response.items[0].title;
-                document.getElementById("bloggerContent").innerHTML = response.items[0].content;
+                var items = response.items;
+                for (let index = 0; index < items.length; index++) {
+                    if (index > 2) break;
+                    var content = items[index].content;
+                    content = content.replaceAll('<a', '<a target="_blank"');
+                    document.getElementById("bloggerItems").innerHTML += '<div class="text-center border border-dark border-1 m-3 p-4"> <h4 class="text-center">' + items[index].title + '</h4> <div class="innerHTML">' + content + '</div></div>'
+                }
+                // document.getElementById("bloggerTitle").innerHTML = response.items[0].title;
+                // document.getElementById("bloggerContent").innerHTML = response.items[0].content;
             }
 
             document.addEventListener("DOMContentLoaded", () => {
