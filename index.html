@@ -305,13 +305,21 @@
             </div>
         </section>
         <script>
-        function handleResponse(response) {
-            document.getElementById("bloggerTitle").innerHTML = response.items[0].title;
-            document.getElementById("bloggerContent").innerHTML = response.items[0].content;
-        }
-        </script>
-        <script src="https://www.googleapis.com/blogger/v3/blogs/8669566163974541000/posts?callback=handleResponse&key=AIzaSyDBfdI--3FHWpzqxbAENQyomqSW4WKi0RU"></script>
+            function handleResponse(response) {
+                document.getElementById("bloggerTitle").innerHTML = response.items[0].title;
+                document.getElementById("bloggerContent").innerHTML = response.items[0].content;
+            }
 
+            document.addEventListener("DOMContentLoaded", () => {
+                fetch("https://www.googleapis.com/blogger/v3/blogs/8669566163974541000/posts?key=AIzaSyAjp0BJMuLNqZ6RdiBe1r9fayedIB94DAw")
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (myJson) {
+                        handleResponse(myJson);
+                    });
+            });
+        </script>
         <!-- Footer-->
         <footer class="bg-light py-5">
             <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2023 - 王筱雯</div></div>
